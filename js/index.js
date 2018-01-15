@@ -49,6 +49,7 @@ window.addEventListener('message', (message) => {
       _drag_init(this);
       return false;
     }
+    allChildiframes[i].onmouseup = _destroy;
   }
 })
 
