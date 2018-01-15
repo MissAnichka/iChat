@@ -66,8 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let newiframe = document.createElement("iframe");
     newiframe.id = id;
     newiframe.name = id;
-    console.log(newiframe, newiframe.id);
-    document.body.appendChild(newiframe);
+    document.getElementById('chatBoxes').appendChild(newiframe);
     newiframe.contentWindow.document.write(iframeContents);
 
     // add listener to this iframe for new message form submission
