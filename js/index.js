@@ -14,10 +14,6 @@ window.addEventListener('message', (message) => {
     }
 })
 
-// let clearForm = () => {
-
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
 
   // when clicking the plus, user gets a new iframe window...
@@ -27,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // create and add new iframe to main parent window
     let id = `iframe${count}`;
-    let iframeContents = `<body><div>User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}:" placeholder="be kind :)" /><button>send</button></form></body>`;
+    let iframeContents = `<head><link href="css/iframeStyle.css" rel="stylesheet" type="text/css" /></head><body><div class="UserNameDiv">User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}:" placeholder="be kind :)" /><button>send</button></form></body>`;
     let newiframe = document.createElement("iframe");
     newiframe.id = id;
     newiframe.name = id;
