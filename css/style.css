@@ -4,17 +4,25 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-    opacity: 0.95;
-    display: grid;
+    opacity: 0.9;
+}
+
+#chatBoxes {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 iframe {
     position: relative;
-    resize: both;
-    overflow: auto;
-    min-width: 100px;
-    min-height: 100px;
     background-color: #fff;
+    border-radius: 10%;
+}
+
+.iframeDiv {
+    border-top: 20px solid #664b84;
+    border-radius: 10%;
+    cursor: move;
+    margin: 3px;
 }
 
 #addNewChatUser {

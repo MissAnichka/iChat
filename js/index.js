@@ -7,50 +7,11 @@ let addMessage = (message) => {
   parent.postMessage(message, "*");
 }
 
-// drag and drop code from...https://jsfiddle.net/tovic/Xcb8d/...
-let selected = null, // Object of the element to be moved
-  x_pos = 0, y_pos = 0, // Stores x & y coordinates of the mouse pointer
-  x_elem = 0, y_elem = 0; // Stores top, left values (edge) of the element
-
-// Will be called when user starts dragging an element
-function _drag_init(elem) {
-  // Store the object of the element which needs to be moved
-  if (!elem.style) elem = elem.frameElement;
-  selected = elem;
-  x_elem = x_pos - selected.offsetLeft;
-  y_elem = y_pos - selected.offsetTop;
-}
-
-// Will be called when user dragging an element
-function _move_elem(e) {
-  x_pos = document.all ? window.event.clientX : e.pageX;
-  y_pos = document.all ? window.event.clientY : e.pageY;
-  if (selected !== null) {
-    selected.style.left = (x_pos - x_elem) + 'px';
-    selected.style.top = (y_pos - y_elem) + 'px';
-  }
-}
-
-// Destroy the object when we are done
-function _destroy() {
-  selected = null;
-}
-
-document.onmousemove = _move_elem;
-document.onmouseup = _destroy;
-// end of drag and drop code from site, modified binding func from site in event listener below...
-
 // parent window document listens for messages and adds them to child iframes
 window.addEventListener('message', (message) => {
-  for (let i = 0; i < allChildiframes.length; i++) {
-    allChildiframes[i].postMessage(message.data, '*');
-    // bind the drag and drop functions here
-    allChildiframes[i].onmousedown = function () {
-      _drag_init(this);
-      return false;
+    for (let i = 0; i < allChildiframes.length; i++) {
+      allChildiframes[i].postMessage(message.data, '*');
     }
-    allChildiframes[i].onmouseup = _destroy;
-  }
 })
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,8 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let newiframe = document.createElement("iframe");
     newiframe.id = id;
     newiframe.name = id;
-    document.getElementById('chatBoxes').appendChild(newiframe);
+    let iframeDiv = document.createElement("div");
+    iframeDiv.id = `iframeDiv${count}`;
+    iframeDiv.className = "iframeDiv";
+    iframeDiv.appendChild(newiframe);
+    document.getElementById('chatBoxes').appendChild(iframeDiv);
     newiframe.contentWindow.document.write(iframeContents);
+
+    // add dragging feature for each iframe
+    $(`#iframeDiv${count}`).draggable({
+      iframeFix: true
+    })
 
     // add listener to this iframe for new message form submission
     newiframe.contentWindow.document.getElementById("addNewMessage").addEventListener('submit', (e) => {
