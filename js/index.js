@@ -14,6 +14,10 @@ window.addEventListener('message', (message) => {
     }
 })
 
+// let clearForm = () => {
+
+// }
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // when clicking the plus, user gets a new iframe window...
@@ -23,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // create and add new iframe to main parent window
     let id = `iframe${count}`;
-    let iframeContents = `<body><div id="toolbar">drag me :)</div><div>User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}:" placeholder="be kind :)" /><button>send</button></form></body>`;
+    let iframeContents = `<body><div>User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}:" placeholder="be kind :)" /><button>send</button></form></body>`;
     let newiframe = document.createElement("iframe");
     newiframe.id = id;
     newiframe.name = id;
@@ -34,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('chatBoxes').appendChild(iframeDiv);
     newiframe.contentWindow.document.write(iframeContents);
 
-    // add dragging feature for each iframe
+    // add dragging feature for this iframe
     $(`#iframeDiv${count}`).draggable({
       iframeFix: true
     })
@@ -43,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newiframe.contentWindow.document.getElementById("addNewMessage").addEventListener('submit', (e) => {
       e.preventDefault();
       addMessage(e.target[0].value);
+      newiframe.contentWindow.document.getElementById("addNewMessage").reset();
     })
 
     // add listener to this iframe for new chat messages to add coming from parent window
