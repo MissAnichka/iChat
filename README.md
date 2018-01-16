@@ -21,6 +21,7 @@ Continue as you wish!
 
 # Built With
 Vanilla JavaScript
+JQuery
 
 # Author
 Anna Medyukh - @MissAnichka
