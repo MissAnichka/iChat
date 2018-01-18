@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // add dragging feature for this iframe
     $(`#iframeDiv${count}`).draggable({
-      iframeFix: true
+      iframeFix: true,
+      zIndex: 100,
+      stack: `#iframeDiv${count}`
     })
 
     // add listener to this iframe for new message form submission
