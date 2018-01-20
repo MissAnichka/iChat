@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // create and add new iframe to main parent window
     let id = `iframe${count}`;
-    let iframeContents = `<head><link href="css/iframeStyle.css" rel="stylesheet" type="text/css" /></head><body><div class="UserNameDiv">User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}:" placeholder="be kind :)" /><button>send</button></form></body>`;
+    let iframeContents = `<head><link href="css/iframeStyle.css" rel="stylesheet" type="text/css" /></head><body><div class="userNameDiv">User ${count}</div><div id="chats"></div><form id="addNewMessage"><input value="User ${count}" id="userNameInput" /><input placeholder="be kind :)" id="userInput" /><button>send</button></form></body>`;
     let newiframe = document.createElement("iframe");
     newiframe.id = id;
     newiframe.name = id;
@@ -36,14 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // add dragging feature for this iframe
     $(`#iframeDiv${count}`).draggable({
-      iframeFix: true
+      iframeFix: true,
+      zIndex: 100,
+      stack: `#iframeDiv${count}`
     })
 
     // add listener to this iframe for new message form submission
     newiframe.contentWindow.document.getElementById("addNewMessage").addEventListener('submit', (e) => {
       e.preventDefault();
-      addMessage(e.target[0].value);
-      newiframe.contentWindow.document.getElementById("addNewMessage").reset();
+      // Change User Name
+      if(!e.target[0].value.includes('User')){
+        newiframe.contentWindow.document.getElementById("userNameInput").value = e.target[0].value;
+        newiframe.contentWindow.document.getElementsByClassName("userNameDiv")[0].innerHTML = e.target[0].value;
+      }
+      // Send message up to parent window
+      addMessage(e.target[0].value + ': ' + e.target[1].value);
+      // Reset input field
+      newiframe.contentWindow.document.getElementById("userInput").value = "";
     })
 
     // add listener to this iframe for new chat messages to add coming from parent window
