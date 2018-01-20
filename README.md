@@ -9,6 +9,8 @@ Download this repository and open the index.html file
 # Using the app
 Click on the + to open a new user chat window within the page
 
+In the first input box, you can change the auto - generated username to anything you wish just by typing it in and sending
+
 Click the + any time you would like to open an additional user chat window
 
 Type your text within your opened user window
